@@ -32,12 +32,12 @@ export default function ConverterClient() {
   }
 
   return (
-    <div className="max-w-lg mx-auto mt-10 bg-gray-900 shadow-md rounded p-6">
+    <div className="max-w-lg mx-auto mt-10 max-sm:mx-2 bg-gray-900 shadow-md rounded p-6">
       <h2 className="text-2xl font-bold mb-4 text-white">Unit Converter</h2>
 
       <label className="block mb-2 text-gray-300">Category</label>
       <select
-        className="w-full border border-black p-2 rounded mb-4 bg-gray-800"
+        className="w-full border  p-2 rounded mb-4 bg-gray-800"
         value={category}
         onChange={(e) => {
           setCategory(e.target.value);

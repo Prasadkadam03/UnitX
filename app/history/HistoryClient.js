@@ -25,7 +25,7 @@ export default function HistoryClient() {
   }, [categoryFilter]);
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 bg-gray-900 shadow rounded p-6">
+    <div className="max-w-3xl mx-auto mt-10 max-sm:mx-2 bg-gray-900 shadow rounded p-6">
       <h2 className="text-2xl font-bold mb-4">Conversion History</h2>
 
       <label className="block mb-2 text-gray-300">Filter by category</label>

@@ -22,7 +22,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-10 bg-gray-900 shadow p-6 rounded">
+    <div className="max-w-md mx-auto max-sm:mx-2 mt-10 bg-gray-900 shadow p-6 rounded">
       <h2 className="text-xl font-bold mb-4 text-white">Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
