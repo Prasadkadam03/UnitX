@@ -18,7 +18,6 @@ export default function ConverterClient() {
     const converted = convertValue(category, fromUnit, toUnit, value);
     setResult(converted);
 
-    // Save to DB
     await fetch("/api/conversions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,13 +32,12 @@ export default function ConverterClient() {
   }
 
   return (
-    <div className="max-w-lg mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
-      <h2 className="text-2xl font-bold mb-4">Unit Converter</h2>
+    <div className="max-w-lg mx-auto mt-10 bg-gray-900 shadow-md rounded p-6">
+      <h2 className="text-2xl font-bold mb-4 text-white">Unit Converter</h2>
 
-      {/* Category selection */}
-      <label className="block mb-2 text-gray-700">Category</label>
+      <label className="block mb-2 text-gray-300">Category</label>
       <select
-        className="w-full border p-2 rounded mb-4"
+        className="w-full border border-black p-2 rounded mb-4 bg-gray-800"
         value={category}
         onChange={(e) => {
           setCategory(e.target.value);
@@ -57,10 +55,9 @@ export default function ConverterClient() {
         ))}
       </select>
 
-      {/* From Unit */}
-      <label className="block mb-2 text-gray-700">From</label>
+      <label className="block mb-2 text-gray-300">From</label>
       <select
-        className="w-full border p-2 rounded mb-4"
+        className="w-full border p-2 rounded mb-4 bg-gray-800"
         value={fromUnit}
         onChange={(e) => setFromUnit(e.target.value)}
       >
@@ -72,9 +69,9 @@ export default function ConverterClient() {
       </select>
 
       {/* To Unit */}
-      <label className="block mb-2 text-gray-700">To</label>
+      <label className="block mb-2 text-gray-300">To</label>
       <select
-        className="w-full border p-2 rounded mb-4"
+        className="w-full border p-2 rounded mb-4  bg-gray-800"
         value={toUnit}
         onChange={(e) => setToUnit(e.target.value)}
       >
@@ -85,8 +82,7 @@ export default function ConverterClient() {
         ))}
       </select>
 
-      {/* Input */}
-      <label className="block mb-2 text-gray-700">Value</label>
+      <label className="block mb-2 text-gray-300 ">Value</label>
       <input
         type="number"
         className="w-full border p-2 rounded mb-4"
@@ -96,15 +92,14 @@ export default function ConverterClient() {
 
       <button
         onClick={handleConvert}
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        className="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-950"
       >
         Convert
       </button>
 
-      {/* Result */}
       {result !== null && (
-        <div className="mt-4 p-3 bg-gray-100 rounded">
-          <p className="text-gray-800">
+        <div className="mt-4 p-3 bg-gray-800 rounded">
+          <p className="">
             {inputValue} {fromUnit} ={" "}
             <span className="font-bold">{result.toFixed(4)} {toUnit}</span>
           </p>

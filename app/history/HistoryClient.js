@@ -25,13 +25,12 @@ export default function HistoryClient() {
   }, [categoryFilter]);
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 bg-white shadow rounded p-6">
+    <div className="max-w-3xl mx-auto mt-10 bg-gray-900 shadow rounded p-6">
       <h2 className="text-2xl font-bold mb-4">Conversion History</h2>
 
-      {/* Filter */}
-      <label className="block mb-2 text-gray-700">Filter by category</label>
+      <label className="block mb-2 text-gray-300">Filter by category</label>
       <select
-        className="border p-2 rounded mb-4"
+        className="border p-2 rounded mb-4 bg-gray-800"
         value={categoryFilter}
         onChange={(e) => setCategoryFilter(e.target.value)}
       >
@@ -46,7 +45,7 @@ export default function HistoryClient() {
       {/* History table */}
       <table className="w-full border-collapse">
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="bg-gray-800">
             <th className="border p-2">Category</th>
             <th className="border p-2">Input</th>
             <th className="border p-2">Output</th>
@@ -74,14 +73,14 @@ export default function HistoryClient() {
       {/* Pagination */}
       <div className="flex justify-between mt-4">
         <button
-          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          className="px-3 py-1 bg-gray-700 rounded disabled:opacity-50"
           onClick={() => fetchHistory(page - 1, categoryFilter)}
           disabled={page <= 1}
         >
           Previous
         </button>
         <button
-          className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          className="px-3 py-1 bg-gray-700 rounded disabled:opacity-50"
           onClick={() => fetchHistory(page + 1, categoryFilter)}
           disabled={page * 10 >= total}
         >
