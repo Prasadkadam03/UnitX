@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import bcrypt from "bcryptjs";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -17,13 +16,14 @@ export default function SignupPage() {
     if (res.ok) {
       router.push("/auth/login");
     } else {
-      alert("Signup failed");
+      const data = await res.json();
+      alert(data.error || "Signup failed");
     }
   }
 
   return (
-    <div className="max-w-md mx-auto mt-10 bg-gray-950 shadow p-6 rounded">
-      <h2 className="text-xl font-bold mb-4">Sign Up</h2>
+    <div className="max-w-md mx-auto mt-10 bg-gray-900 shadow p-6 rounded">
+      <h2 className="text-xl font-bold mb-4 text-white">Sign Up</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -46,7 +46,10 @@ export default function SignupPage() {
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
-        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded">
+        <button
+          type="submit"
+          className="w-full bg-gray-800 cursor-pointer hover:bg-gray-950 text-white py-2 rounded"
+        >
           Sign Up
         </button>
       </form>

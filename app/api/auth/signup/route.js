@@ -1,5 +1,4 @@
 import { createUser, findUserByEmail } from "../../../../models/User.js";
-
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
