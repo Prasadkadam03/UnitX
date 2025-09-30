@@ -16,13 +16,13 @@ export default async function HomePage() {
         <div className="flex gap-4">
           <Link
             href="/auth/signup"
-            className="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-700"
+            className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
           >
             Sign Up
           </Link>
           <Link
             href="/auth/login"
-            className="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-700"
+            className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
           >
             Login
           </Link>
@@ -30,7 +30,7 @@ export default async function HomePage() {
       ) : (
         <Link
           href="/converter"
-          className="px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-700"
+          className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
         >
           Go to Converter
         </Link>

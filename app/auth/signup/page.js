@@ -37,42 +37,87 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-10 max-sm:mx-2 bg-gray-900 shadow p-6 rounded">
-      <h2 className="text-xl font-bold mb-4 text-white">Sign Up</h2>
+    <div
+      className="max-w-md mx-auto mt-10 max-sm:mx-2 shadow p-6 rounded transition-colors duration-300"
+      style={{ backgroundColor: "var(--bg2)", color: "var(--fg)" }}
+    >
+      <h2 className="text-xl font-bold mb-4" style={{ color: "var(--fg)" }}>
+        Sign Up
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <input
             type="text"
             placeholder="Name"
-            className="w-full border p-2 rounded"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className="w-full border p-2 rounded transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--bg)",
+              color: "var(--fg)",
+              borderColor: "var(--tab-bg)",
+            }}
           />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+          {errors.name && (
+            <p className="text-sm mt-1" style={{ color: "#f87171" }}>
+              {errors.name}
+            </p>
+          )}
         </div>
+
         <div>
           <input
             type="email"
             placeholder="Email"
-            className="w-full border p-2 rounded"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="w-full border p-2 rounded transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--bg)",
+              color: "var(--fg)",
+              borderColor: "var(--tab-bg)",
+            }}
           />
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+          {errors.email && (
+            <p className="text-sm mt-1" style={{ color: "#f87171" }}>
+              {errors.email}
+            </p>
+          )}
         </div>
+
         <div>
           <input
             type="password"
             placeholder="Password"
-            className="w-full border p-2 rounded"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
+            className="w-full border p-2 rounded transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--bg)",
+              color: "var(--fg)",
+              borderColor: "var(--tab-bg)",
+            }}
           />
-          {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+          {errors.password && (
+            <p className="text-sm mt-1" style={{ color: "#f87171" }}>
+              {errors.password}
+            </p>
+          )}
         </div>
+
         <button
           type="submit"
-          className="w-full bg-gray-800 cursor-pointer hover:bg-gray-950 text-white py-2 rounded"
+          className="w-full py-2 rounded transition-colors duration-300"
+          style={{
+            backgroundColor: "var(--tab-bg)",
+            color: "var(--fg)",
+          }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--tab-hover)")
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--tab-bg)")
+          }
         >
           Sign Up
         </button>

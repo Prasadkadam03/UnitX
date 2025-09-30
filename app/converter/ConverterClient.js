@@ -58,7 +58,10 @@ export default function ConverterClient() {
   );
 
   return (
-    <div className="max-w-6xl mx-auto max-sm:mx-2 my-10 p-6 bg-gray-900 rounded-xl shadow-lg">
+    <div
+      className="max-w-6xl mx-auto max-sm:mx-2 my-10 p-6 rounded-xl shadow-lg transition-colors duration-300"
+      style={{ backgroundColor: "var(--bg2)", color: "var(--fg)" }}
+    >
       {/* Categories */}
       <div className="flex justify-center gap-3 mb-8 flex-wrap">
         {categories.map((c) => (
@@ -73,10 +76,12 @@ export default function ConverterClient() {
               setSearchFrom("");
               setSearchTo("");
             }}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition ${c === category
-              ? "bg-gray-800 text-white shadow"
-              : "bg-gray-700 text-gray-200 hover:bg-gray-800"
-              }`}
+            className="px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-300"
+            style={{
+              backgroundColor: c === category ? "var(--tab-bg)" : "var(--bg2)",
+              color: "var(--fg)",
+              fontWeight: c === category ? "bold" : "normal",
+            }}
           >
             {c.charAt(0).toUpperCase() + c.slice(1)}
           </button>
@@ -84,15 +89,26 @@ export default function ConverterClient() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-start">
-        <div className="md:col-span-2 bg-gray-800 rounded-xl p-5 shadow-inner">
-          <h3 className="text-gray-300 text-sm mb-2">Input</h3>
+        {/* Input */}
+        <div
+          className="md:col-span-2 rounded-xl p-5 shadow-inner transition-colors duration-300"
+          style={{ backgroundColor: "var(--tab-bg)" }}
+        >
+          <h3 className="text-sm mb-2" style={{ color: "var(--fg)" }}>
+            Input
+          </h3>
 
           <input
             type="number"
             placeholder="Enter value"
             value={inputValue}
             onChange={handleInputChange}
-            className="w-full p-3 mb-2 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-gray-800 outline-none"
+            className="w-full p-3 mb-2 rounded-lg outline-none transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--bg)",
+              color: "var(--fg)",
+              borderColor: "var(--tab-bg)",
+            }}
           />
 
           <input
@@ -100,10 +116,21 @@ export default function ConverterClient() {
             placeholder="Search unit..."
             value={searchFrom}
             onChange={(e) => setSearchFrom(e.target.value)}
-            className="w-full p-2 mb-2 border border-gray-700 rounded-lg bg-gray-900 text-white outline-none"
+            className="w-full p-2 mb-2 rounded-lg outline-none transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--bg)",
+              color: "var(--fg)",
+              borderColor: "var(--tab-bg)",
+            }}
           />
 
-          <div className="max-h-40 overflow-y-auto rounded-lg border border-gray-700 bg-gray-900">
+          <div
+            className="max-h-40 overflow-y-auto rounded-lg border transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--bg)",
+              borderColor: "var(--tab-bg)",
+            }}
+          >
             <ul>
               {filteredFromUnits.map((u) => (
                 <li
@@ -112,8 +139,12 @@ export default function ConverterClient() {
                     setFromUnit(u);
                     if (inputValue) handleConvert(inputValue, u, toUnit);
                   }}
-                  className={`px-3 py-2 cursor-pointer text-gray-200 text-sm hover:bg-gray-700 transition ${fromUnit === u ? "bg-gray-700 text-white font-semibold" : ""
-                    }`}
+                  className="px-3 py-2 cursor-pointer text-sm transition-colors duration-300"
+                  style={{
+                    backgroundColor: fromUnit === u ? "var(--tab-hover)" : "transparent",
+                    color: "var(--fg)",
+                    fontWeight: fromUnit === u ? "bold" : "normal",
+                  }}
                 >
                   {u}
                 </li>
@@ -122,23 +153,39 @@ export default function ConverterClient() {
           </div>
         </div>
 
+        {/* Swap Button */}
         <div className="flex justify-center h-2/2 items-center">
           <button
             onClick={handleSwap}
-            className="w-16 h-16 rounded-full bg-gray-800 text-white shadow hover:bg-gray-700 flex items-center justify-center transition transform hover:rotate-180"
+            className="w-16 h-16 rounded-full shadow flex items-center justify-center transition-transform duration-300"
+            style={{
+              backgroundColor: "var(--tab-bg)",
+              color: "var(--fg)",
+            }}
           >
             ⇄
           </button>
         </div>
 
-        <div className="md:col-span-2 bg-gray-800 rounded-xl p-5 shadow-inner">
-          <h3 className="text-gray-300 text-sm mb-2">Output</h3>
+        {/* Output */}
+        <div
+          className="md:col-span-2 rounded-xl p-5 shadow-inner transition-colors duration-300"
+          style={{ backgroundColor: "var(--tab-bg)" }}
+        >
+          <h3 className="text-sm mb-2" style={{ color: "var(--fg)" }}>
+            Output
+          </h3>
 
           <input
             type="text"
             readOnly
             value={result !== null ? result.toFixed(5) : ""}
-            className="w-full p-3 mb-2 border border-gray-700 rounded-lg bg-gray-900 text-white"
+            className="w-full p-3 mb-2 rounded-lg transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--bg)",
+              color: "var(--fg)",
+              borderColor: "var(--tab-bg)",
+            }}
           />
 
           <input
@@ -146,10 +193,21 @@ export default function ConverterClient() {
             placeholder="Search unit..."
             value={searchTo}
             onChange={(e) => setSearchTo(e.target.value)}
-            className="w-full p-2 mb-2 border border-gray-700 rounded-lg bg-gray-900 text-white outline-none"
+            className="w-full p-2 mb-2 rounded-lg outline-none transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--bg)",
+              color: "var(--fg)",
+              borderColor: "var(--tab-bg)",
+            }}
           />
 
-          <div className="max-h-40 overflow-y-auto rounded-lg border border-gray-700 bg-gray-900">
+          <div
+            className="max-h-40 overflow-y-auto rounded-lg border transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--bg)",
+              borderColor: "var(--tab-bg)",
+            }}
+          >
             <ul>
               {filteredToUnits.map((u) => (
                 <li
@@ -158,8 +216,12 @@ export default function ConverterClient() {
                     setToUnit(u);
                     if (inputValue) handleConvert(inputValue, fromUnit, u);
                   }}
-                  className={`px-3 py-2 cursor-pointer text-gray-200 text-sm hover:bg-gray-700 transition ${toUnit === u ? "bg-gray-700 text-white font-semibold" : ""
-                    }`}
+                  className="px-3 py-2 cursor-pointer text-sm transition-colors duration-300"
+                  style={{
+                    backgroundColor: toUnit === u ? "var(--tab-hover)" : "transparent",
+                    color: "var(--fg)",
+                    fontWeight: toUnit === u ? "bold" : "normal",
+                  }}
                 >
                   {u}
                 </li>
@@ -169,11 +231,11 @@ export default function ConverterClient() {
         </div>
       </div>
 
-      {/* Result display */}
+      {/* Result */}
       {result !== null && (
-        <div className="text-center mt-8 text-lg text-gray-300">
+        <div className="text-center mt-8 text-lg transition-colors duration-300" style={{ color: "var(--fg)" }}>
           {inputValue} {fromUnit} ={" "}
-          <span className="font-bold text-gray-200">
+          <span style={{ fontWeight: "bold", color: "var(--fg)" }}>
             {result.toFixed(4)} {toUnit}
           </span>
         </div>
