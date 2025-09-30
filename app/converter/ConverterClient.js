@@ -49,7 +49,7 @@ export default function ConverterClient() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto max-sm:mx-2 mt-10 p-6 bg-gray-900 rounded-xl shadow-lg">
+    <div className="max-w-4xl mx-auto max-sm:mx-2 my-10 p-6 bg-gray-900 rounded-xl shadow-lg">
       <div className="flex justify-center gap-3 mb-8 flex-wrap">
         {categories.map((c) => (
           <button
