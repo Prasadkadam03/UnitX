@@ -146,7 +146,7 @@ export default function ConverterClient() {
             placeholder="Search unit..."
             value={searchTo}
             onChange={(e) => setSearchTo(e.target.value)}
-            className="w-full p-2 mb-2 border border-gray-700 rounded-lg bg-gray-00 text-white outline-none"
+            className="w-full p-2 mb-2 border border-gray-700 rounded-lg bg-gray-900 text-white outline-none"
           />
 
           <div className="max-h-40 overflow-y-auto rounded-lg border border-gray-700 bg-gray-900">
