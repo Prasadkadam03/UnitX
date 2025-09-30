@@ -37,7 +37,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-gray-900 text-white p-4 shadow-lg rounded-md max-sm:mx-2 mx-7  mt-5">
+    <header className="bg-gray-900 text-white p-4 shadow-lg rounded-xl max-sm:mx-2 mx-7  mt-5">
       <div className="max-w-5xl mx-auto flex justify-between items-center">
         <h1 className="text-4xl font-bold font-mono text-gray-50">UnitX</h1>
 
@@ -48,7 +48,7 @@ export default function Header() {
                 <li key={tab.href}>
                   <Link
                     href={tab.href}
-                    className="hover:underline flex items-center gap-1 px-2 py-1 rounded-md bg-gray-800"
+                    className="hover:underline flex items-center gap-1 px-2 py-1 rounded-lg bg-gray-800"
                   >
                     {tab.icon}
                     <span className="hidden sm:inline">{tab.label}</span>

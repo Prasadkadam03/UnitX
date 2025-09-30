@@ -7,9 +7,10 @@ export default function HistoryClient() {
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
     const [categoryFilter, setCategoryFilter] = useState("");
+    const lastPage = Math.ceil(total / 10);
 
     async function fetchHistory(p = 1, category = "") {
-        let url = `/api/conversions?page=${p}`;
+        let url = `/api/conversions?page=${p}&limit=10`;
         if (category) url += `&category=${category}`;
         const res = await fetch(url);
         if (res.ok) {
@@ -92,7 +93,7 @@ export default function HistoryClient() {
                 <button
                     className="px-3 py-1 bg-gray-700 rounded disabled:opacity-50"
                     onClick={() => fetchHistory(page + 1, categoryFilter)}
-                    disabled={page * 10 >= total}
+                    disabled={page >= lastPage}
                 >
                     Next
                 </button>

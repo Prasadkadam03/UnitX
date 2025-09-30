@@ -6,9 +6,20 @@ export async function POST(req) {
   const session = await getServerSession(authOptions);
   if (!session) return new Response("Unauthorized", { status: 401 });
 
-  const { category, fromUnit, toUnit, inputValue, outputValue } = await req.json();
+  const { category, fromUnit, toUnit, inputValue, outputValue, userId } = await req.json();
+  if (
+    !category ||
+    !fromUnit ||
+    !toUnit ||
+    inputValue === undefined ||
+    outputValue === undefined ||
+    !userId
+  ) {
+    return new Response("All fields are required", { status: 400 });
+  }
+
   await saveConversion({
-    userId: session.user.id,
+    userId,
     category,
     fromUnit,
     toUnit,
