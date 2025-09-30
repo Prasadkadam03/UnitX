@@ -6,20 +6,13 @@ export async function POST(req) {
   const session = await getServerSession(authOptions);
   if (!session) return new Response("Unauthorized", { status: 401 });
 
-  const { category, fromUnit, toUnit, inputValue, outputValue, userId } = await req.json();
-  if (
-    !category ||
-    !fromUnit ||
-    !toUnit ||
-    inputValue === undefined ||
-    outputValue === undefined ||
-    !userId
-  ) {
+  const { category, fromUnit, toUnit, inputValue, outputValue } = await req.json();
+  if (!category || !fromUnit || !toUnit || inputValue === undefined || outputValue === undefined) {
     return new Response("All fields are required", { status: 400 });
   }
 
   await saveConversion({
-    userId,
+    email: session.user.email,
     category,
     fromUnit,
     toUnit,
@@ -39,7 +32,7 @@ export async function GET(req) {
   const limit = parseInt(searchParams.get("limit")) || 10;
   const category = searchParams.get("category") || null;
 
-  const { conversions, total } = await getConversions(session.user.id, page, limit, category);
+  const { conversions, total } = await getConversions(session.user.email, page, limit, category);
 
   return new Response(JSON.stringify({ conversions, total, page, limit }), { status: 200 });
 }

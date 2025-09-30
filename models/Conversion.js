@@ -1,10 +1,10 @@
 import clientPromise from "../lib/mongodb.js";
 
-export async function saveConversion({ userId, category, fromUnit, toUnit, inputValue, outputValue }) {
+export async function saveConversion({ email, category, fromUnit, toUnit, inputValue, outputValue }) {
   const client = await clientPromise;
   const db = client.db("unitx");
   const result = await db.collection("conversions").insertOne({
-    userId,
+    email, 
     category,
     fromUnit,
     toUnit,
@@ -15,10 +15,11 @@ export async function saveConversion({ userId, category, fromUnit, toUnit, input
   return result.insertedId;
 }
 
-export async function getConversions(userId, page = 1, limit = 10, categoryFilter = null) {
+export async function getConversions(email, page = 1, limit = 10, categoryFilter = null) {
   const client = await clientPromise;
   const db = client.db("unitx");
-  const query = { userId };
+
+  const query = { email };
   if (categoryFilter) query.category = categoryFilter;
 
   const skip = (page - 1) * limit;

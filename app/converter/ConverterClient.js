@@ -10,6 +10,7 @@ export default function ConverterClient() {
   const [toUnit, setToUnit] = useState("kilometer");
   const [inputValue, setInputValue] = useState("");
   const [result, setResult] = useState(null);
+  const [debounceTimer, setDebounceTimer] = useState(null);
 
   async function handleConvert(val = inputValue, f = fromUnit, t = toUnit) {
     if (!val) return;
@@ -37,6 +38,16 @@ export default function ConverterClient() {
     if (inputValue) handleConvert(inputValue, toUnit, fromUnit);
   }
 
+  function handleInputChange(e) {
+    const val = e.target.value;
+    setInputValue(val);
+    if (debounceTimer) clearTimeout(debounceTimer);
+    const timer = setTimeout(() => {
+      handleConvert(val);
+    }, 500);
+    setDebounceTimer(timer);
+  }
+
   return (
     <div className="max-w-4xl mx-auto max-sm:mx-2 mt-10 p-6 bg-gray-900 rounded-xl shadow-lg">
       <div className="flex justify-center gap-3 mb-8 flex-wrap">
@@ -50,11 +61,10 @@ export default function ConverterClient() {
               setToUnit(second);
               setResult(null);
             }}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
-              c === category
+            className={`px-4 py-2 rounded-xl text-sm font-medium transition ${c === category
                 ? "bg-gray-800 text-white shadow"
                 : "bg-gray-700 text-gray-200 hover:bg-gray-800"
-            }`}
+              }`}
           >
             {c.charAt(0).toUpperCase() + c.slice(1)}
           </button>
@@ -69,10 +79,7 @@ export default function ConverterClient() {
             type="number"
             placeholder="Enter value"
             value={inputValue}
-            onChange={(e) => {
-              setInputValue(e.target.value);
-              handleConvert(e.target.value);
-            }}
+            onChange={handleInputChange}
             className="w-full p-3 mb-4 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-gray-800 outline-none"
           />
           <div className="max-h-40 overflow-y-auto rounded-lg border border-gray-700 bg-gray-900">
@@ -84,9 +91,8 @@ export default function ConverterClient() {
                     setFromUnit(u);
                     if (inputValue) handleConvert(inputValue, u, toUnit);
                   }}
-                  className={`px-3 py-2 cursor-pointer text-gray-200 text-sm hover:bg-gray-700 transition ${
-                    fromUnit === u ? "bg-gray-700 text-white font-semibold" : ""
-                  }`}
+                  className={`px-3 py-2 cursor-pointer text-gray-200 text-sm hover:bg-gray-700 transition ${fromUnit === u ? "bg-gray-700 text-white font-semibold" : ""
+                    }`}
                 >
                   {u}
                 </li>
@@ -123,9 +129,8 @@ export default function ConverterClient() {
                     setToUnit(u);
                     if (inputValue) handleConvert(inputValue, fromUnit, u);
                   }}
-                  className={`px-3 py-2 cursor-pointer text-gray-200 text-sm hover:bg-gray-700 transition ${
-                    toUnit === u ? "bg-gray-700 text-white font-semibold" : ""
-                  }`}
+                  className={`px-3 py-2 cursor-pointer text-gray-200 text-sm hover:bg-gray-700 transition ${toUnit === u ? "bg-gray-700 text-white font-semibold" : ""
+                    }`}
                 >
                   {u}
                 </li>
