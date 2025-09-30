@@ -11,6 +11,8 @@ export default function ConverterClient() {
   const [inputValue, setInputValue] = useState("");
   const [result, setResult] = useState(null);
   const [debounceTimer, setDebounceTimer] = useState(null);
+  const [searchFrom, setSearchFrom] = useState("");
+  const [searchTo, setSearchTo] = useState("");
 
   async function handleConvert(val = inputValue, f = fromUnit, t = toUnit) {
     if (!val) return;
@@ -48,8 +50,16 @@ export default function ConverterClient() {
     setDebounceTimer(timer);
   }
 
+  const filteredFromUnits = Object.keys(units[category]).filter((u) =>
+    u.toLowerCase().includes(searchFrom.toLowerCase())
+  );
+  const filteredToUnits = Object.keys(units[category]).filter((u) =>
+    u.toLowerCase().includes(searchTo.toLowerCase())
+  );
+
   return (
-    <div className="max-w-4xl mx-auto max-sm:mx-2 my-10 p-6 bg-gray-900 rounded-xl shadow-lg">
+    <div className="max-w-6xl mx-auto max-sm:mx-2 my-10 p-6 bg-gray-900 rounded-xl shadow-lg">
+      {/* Categories */}
       <div className="flex justify-center gap-3 mb-8 flex-wrap">
         {categories.map((c) => (
           <button
@@ -60,10 +70,12 @@ export default function ConverterClient() {
               setFromUnit(first);
               setToUnit(second);
               setResult(null);
+              setSearchFrom("");
+              setSearchTo("");
             }}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition ${c === category
-                ? "bg-gray-800 text-white shadow"
-                : "bg-gray-700 text-gray-200 hover:bg-gray-800"
+              ? "bg-gray-800 text-white shadow"
+              : "bg-gray-700 text-gray-200 hover:bg-gray-800"
               }`}
           >
             {c.charAt(0).toUpperCase() + c.slice(1)}
@@ -71,8 +83,8 @@ export default function ConverterClient() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-        <div className="bg-gray-800 rounded-xl p-5 shadow-inner">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-start">
+        <div className="md:col-span-2 bg-gray-800 rounded-xl p-5 shadow-inner">
           <h3 className="text-gray-300 text-sm mb-2">Input</h3>
 
           <input
@@ -80,11 +92,20 @@ export default function ConverterClient() {
             placeholder="Enter value"
             value={inputValue}
             onChange={handleInputChange}
-            className="w-full p-3 mb-4 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-gray-800 outline-none"
+            className="w-full p-3 mb-2 border border-gray-700 rounded-lg bg-gray-900 text-white focus:ring-2 focus:ring-gray-800 outline-none"
           />
+
+          <input
+            type="text"
+            placeholder="Search unit..."
+            value={searchFrom}
+            onChange={(e) => setSearchFrom(e.target.value)}
+            className="w-full p-2 mb-2 border border-gray-700 rounded-lg bg-gray-800 text-white outline-none"
+          />
+
           <div className="max-h-40 overflow-y-auto rounded-lg border border-gray-700 bg-gray-900">
             <ul>
-              {Object.keys(units[category]).map((u) => (
+              {filteredFromUnits.map((u) => (
                 <li
                   key={u}
                   onClick={() => {
@@ -101,28 +122,36 @@ export default function ConverterClient() {
           </div>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center h-2/2 items-center">
           <button
             onClick={handleSwap}
-            className="w-14 h-14 rounded-full bg-gray-800 text-white shadow hover:bg-gray-700 flex items-center justify-center transition transform hover:rotate-180"
+            className="w-16 h-16 rounded-full bg-gray-800 text-white shadow hover:bg-gray-700 flex items-center justify-center transition transform hover:rotate-180"
           >
             ⇄
           </button>
         </div>
 
-        <div className="bg-gray-800 rounded-xl p-5 shadow-inner">
+        <div className="md:col-span-2 bg-gray-800 rounded-xl p-5 shadow-inner">
           <h3 className="text-gray-300 text-sm mb-2">Output</h3>
 
           <input
             type="text"
             readOnly
             value={result !== null ? result.toFixed(5) : ""}
-            className="w-full p-3 mb-4 border border-gray-700 rounded-lg bg-gray-900 text-white"
+            className="w-full p-3 mb-2 border border-gray-700 rounded-lg bg-gray-900 text-white"
+          />
+
+          <input
+            type="text"
+            placeholder="Search unit..."
+            value={searchTo}
+            onChange={(e) => setSearchTo(e.target.value)}
+            className="w-full p-2 mb-2 border border-gray-700 rounded-lg bg-gray-800 text-white outline-none"
           />
 
           <div className="max-h-40 overflow-y-auto rounded-lg border border-gray-700 bg-gray-900">
             <ul>
-              {Object.keys(units[category]).map((u) => (
+              {filteredToUnits.map((u) => (
                 <li
                   key={u}
                   onClick={() => {
