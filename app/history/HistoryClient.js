@@ -26,32 +26,41 @@ export default function HistoryClient() {
     }, [categoryFilter]);
 
     return (
-        <div className="max-w-3xl mx-auto my-10 max-sm:mx-2 bg-gray-900 shadow rounded p-6">
-            <h2 className="text-2xl font-bold mb-4">Conversion History</h2>
+        <div className="max-w-4xl mx-auto my-10 max-sm:mx-2 p-6 bg-gray-900 rounded-xl shadow-lg">
+            <h2 className="text-2xl font-bold mb-6 text-white">Conversion History</h2>
 
-            <label className="block mb-2 text-gray-300">Filter by category</label>
-            <select
-                className="border p-2 rounded mb-4 bg-gray-800"
-                value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
-            >
-                <option value="">All</option>
-                <option value="distance">Distance</option>
-                <option value="area">Area</option>
-                <option value="speed">Speed</option>
-                <option value="acceleration">Acceleration</option>
-                <option value="temperature">Temperature</option>
-            </select>
-
-            {/* History table */}
-            <div className="overflow-x-auto">
-                <table className="w-full min-w-[600px] border-collapse">
+            {/* Filter */}
+            <div className="mb-6 flex flex-wrap gap-2">
+                <span className="text-gray-300 mr-4 self-center">Filter by category:</span>
+                {[
+                    { label: "All", value: "" },
+                    { label: "Distance", value: "distance" },
+                    { label: "Area", value: "area" },
+                    { label: "Speed", value: "speed" },
+                    { label: "Acceleration", value: "acceleration" },
+                    { label: "Temperature", value: "temperature" },
+                ].map((cat) => (
+                    <button
+                        key={cat.value}
+                        className={`px-4 py-2 rounded-lg transition-colors
+                            ${categoryFilter === cat.value
+                                ? "bg-gray-700 text-white font-bold"
+                                : "bg-gray-800 text-gray-300 hover:bg-gray-700"}
+                        `}
+                        onClick={() => setCategoryFilter(cat.value)}
+                    >
+                        {cat.label}
+                    </button>
+                ))}
+            </div>
+            <div className="overflow-x-auto rounded-lg border border-gray-700 bg-gray-800 shadow-inner">
+                <table className="w-full border-collapse min-w-[600px] text-white">
                     <thead>
-                        <tr className="bg-gray-800 text-white">
-                            <th className="border p-2 text-left">Category</th>
-                            <th className="border p-2 text-left">Input</th>
-                            <th className="border p-2 text-left">Output</th>
-                            <th className="border p-2 text-left">Date</th>
+                        <tr className="bg-gray-900 text-left">
+                            <th className="p-3">Category</th>
+                            <th className="p-3">Input</th>
+                            <th className="p-3">Output</th>
+                            <th className="p-3">Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,17 +72,14 @@ export default function HistoryClient() {
                             </tr>
                         ) : (
                             conversions.map((c, i) => (
-                                <tr key={i} className="odd:bg-gray-800 even:bg-gray-700 text-white">
-                                    <td className="border p-2">{c.category}</td>
-                                    <td className="border p-2">
-                                        {c.inputValue} {c.fromUnit}
-                                    </td>
-                                    <td className="border p-2">
-                                        {c.outputValue} {c.toUnit}
-                                    </td>
-                                    <td className="border p-2">
-                                        {new Date(c.timestamp).toLocaleString()}
-                                    </td>
+                                <tr
+                                    key={i}
+                                    className={`text-white ${i % 2 === 0 ? "bg-gray-800" : "bg-gray-900"}`}
+                                >
+                                    <td className="p-3">{c.category}</td>
+                                    <td className="p-3">{c.inputValue} {c.fromUnit}</td>
+                                    <td className="p-3">{c.outputValue} {c.toUnit}</td>
+                                    <td className="p-3">{new Date(c.timestamp).toLocaleString()}</td>
                                 </tr>
                             ))
                         )}
@@ -82,16 +88,16 @@ export default function HistoryClient() {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-between mt-4">
+            <div className="flex justify-between mt-6">
                 <button
-                    className="px-3 py-1 bg-gray-700 rounded disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-800 text-white rounded-lg shadow hover:bg-gray-700 disabled:opacity-50"
                     onClick={() => fetchHistory(page - 1, categoryFilter)}
                     disabled={page <= 1}
                 >
                     Previous
                 </button>
                 <button
-                    className="px-3 py-1 bg-gray-700 rounded disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-800 text-white rounded-lg shadow hover:bg-gray-700 disabled:opacity-50"
                     onClick={() => fetchHistory(page + 1, categoryFilter)}
                     disabled={page >= lastPage}
                 >
